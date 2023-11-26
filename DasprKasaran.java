@@ -86,24 +86,91 @@ public class DasprKasaran {
             if (studioInput == 0) {
                 PemilihanJumlahTiket();
                 PemilihanKursiStudioDeluxeWish();
+                tampilkanRingkasan();
+                prosesPembayaran();
             }
         } else if (filmTerpilih.equalsIgnoreCase("The Marvels")) {
             PemilihanStudioTheMarvels();
             if (studioInput == 0) {
                 PemilihanJumlahTiket();
                 PemilihanKursiStudioDeluxeTheMarvels();
+                tampilkanRingkasan();
+                prosesPembayaran();
             } else if (studioInput == 1) {
                 PemilihanJumlahTiket();
                 PemilihanKursiStudioIMAXTheMarvels();
+                tampilkanRingkasan();
+                prosesPembayaran();
             }
         } else if (filmTerpilih.equalsIgnoreCase("Napoleon")) {
             PemilihanStudioNapoleon();
             if (studioInput == 0) {
                 PemilihanJumlahTiket();
                 PemilihanKursiStudioThePremiereNapoleon();
+                tampilkanRingkasan();
+                prosesPembayaran();
             }
         }
     }
+
+    static void tampilkanRingkasan() {
+        System.out.println("===== Ringkasan Pemesanan =====");
+        System.out.println("Film: " + filmTerpilih);
+        System.out.println("Studio: " + getStudioTerpilih());
+        System.out.println("Jumlah Tiket: " + jumlahTiket);
+        System.out.println("Pilihan Kursi: ");
+        for (int i = 0; i < indexKursiTerpilih; i++) {
+            System.out.println(kursiTerpilih[i]);
+        }
+        System.out.println("===============================");
+    }
+
+    static void prosesPembayaran() {
+        System.out.println("===== Proses Pembayaran =====");
+        System.out.println("Total Harga: " + hitungTotalHarga());
+        System.out.println("Pilih metode pembayaran:");
+        System.out.println("1. Tunai");
+        System.out.println("2. Kartu Kredit");
+        int metodePembayaran = input.nextInt();
+        if (metodePembayaran == 1) {
+            System.out.println("Pembayaran berhasil. Tiket telah terpesan!");
+        } else if (metodePembayaran == 2) {
+            System.out.println("Masukkan nomor kartu kredit:");
+            String nomorKartuKredit = input.next();
+            System.out.println("Pembayaran berhasil. Tiket telah terpesan!");
+        } else {
+            System.out.println("Metode pembayaran tidak valid.");
+        }
+    }
+
+    static int hitungTotalHarga() {
+        int hargaTiket = 0;
+        if (filmTerpilih.equalsIgnoreCase("WISH")) {
+            hargaTiket = hrg_stdWISH[studioInput] * jumlahTiket;
+        } else if (filmTerpilih.equalsIgnoreCase("The Marvels")) {
+            if (studioInput == 0) {
+                hargaTiket = hrg_stdTheMarvels[0] * jumlahTiket;
+            } else if (studioInput == 1) {
+                hargaTiket = hrg_stdTheMarvels[1] * jumlahTiket;
+            }
+        } else if (filmTerpilih.equalsIgnoreCase("Napoleon")) {
+            hargaTiket = hrg_stdNapoleon[studioInput] * jumlahTiket;
+        }
+        return hargaTiket;
+    }
+
+    static String getStudioTerpilih() {
+        if (filmTerpilih.equalsIgnoreCase("WISH")) {
+            return studioWISH[studioInput];
+        } else if (filmTerpilih.equalsIgnoreCase("The Marvels")) {
+            return studioTheMarvels[studioInput];
+        } else if (filmTerpilih.equalsIgnoreCase("Napoleon")) {
+            return studioNapoleon[studioInput];
+        } else {
+            return "";
+        }
+    }
+
 //=======================================================================================================////
     static void PemilihanFILM(){
         // Pilih Film
