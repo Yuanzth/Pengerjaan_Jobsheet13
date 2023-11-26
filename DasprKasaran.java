@@ -113,6 +113,7 @@ public class DasprKasaran {
         }
     }
 
+//=======================================================================================================//
     static void tampilkanRingkasan() {
         System.out.println("===== Ringkasan Pemesanan =====");
         System.out.println("Film: " + filmTerpilih);
@@ -170,8 +171,6 @@ public class DasprKasaran {
             return "";
         }
     }
-
-//=======================================================================================================////
     static void PemilihanFILM(){
         // Pilih Film
         System.out.println("Daftar Film yang Tersedia:");
