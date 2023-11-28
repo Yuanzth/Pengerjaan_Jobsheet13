@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class DasprKasaran {
 
-    static String[] usernames = {"admin"};
-    static String[] passwords = {"admin123"};
+    static String[] usernames = {"kasir1", "kasir2"};
+    static String[] passwords = {"123", "456"};
     static Scanner input = new Scanner(System.in);
     //>>>>>>>>>>>>>>>>>>>>>>>> Kebutuhan Untuk Pemilihan Film <<<<<<<<<<<<<<<<<<<<<<<<<<<//
     static int jdlinput = -1; // Inisialisasi dengan nilai default yang tidak valid
@@ -46,21 +46,47 @@ public class DasprKasaran {
     static int indexKursiTerpilih = 0; // Menunjukkan indeks terakhir kursi terpilih
     //>>>>>>>>>>>>>>>>>>>>>>>>>> Kebutuhan Untuk Kursi Studio <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
 
-
     public static void main(String[] args) {
         fillArrayWithZero(StudioDeluxeWish);
         fillArrayWithZero(StudioIMAXTheMarvels);
         fillArrayWithZero(StudioDeluxeTheMarvels);
-        fillArrayWithZero(StudioThePremiereNapoleon);        
+        fillArrayWithZero(StudioThePremiereNapoleon);
 
+        boolean programRunning = true;
+
+        while (programRunning) {
+            System.out.println("Menu Utama:");
+            System.out.println("1. Login sebagai Kasir");
+            System.out.println("2. Exit");
+
+            System.out.print("Pilih opsi: ");
+            int menuUtamaChoice = input.nextInt();
+
+            switch (menuUtamaChoice) {
+                case 1:
+                    login();
+                    break;
+
+                case 2:
+                    programRunning = false;
+                    System.out.println("Program berakhir.");
+                    break;
+
+                default:
+                    System.out.println("Pilihan tidak valid. Silakan pilih lagi.");
+                    break;
+            }
+        }
+    }
+
+    static void login() {
         boolean isLoggedIn = false;
         String loggedInUser = "";
 
-        System.out.println("Selamat datang di Sistem Booking Tiket Bioskop");
-
         while (!isLoggedIn) {
+            Scanner inputuser = new Scanner(System.in);
             System.out.print("Masukkan nama pengguna: ");
-            String username = input.nextLine();
+            String username = inputuser.nextLine();
             System.out.print("Masukkan kata sandi: ");
             String password = input.nextLine();
             int userIndex = -1;
@@ -74,41 +100,69 @@ public class DasprKasaran {
                 isLoggedIn = true;
                 loggedInUser = username;
                 System.out.println("Selamat datang, " + loggedInUser + "!");
+
+                boolean wantsToLogout = false;
+
+                while (!wantsToLogout) {
+                    System.out.println("Menu:");
+                    System.out.println("1. Pemesanan Tiket");
+                    System.out.println("2. Logout");
+
+                    System.out.print("Pilih opsi: ");
+                    int menuChoice = input.nextInt();
+
+                    switch (menuChoice) {
+                        case 1:
+                        PemilihanFILM();
+                        filmTerpilih = jdl_film[jdlinput];
+
+                        if (filmTerpilih.equalsIgnoreCase("WISH")) {
+                            PemilihanStudioWish();
+                            if (studioInput == 0) {
+                                PemilihanJumlahTiket();
+                                PemilihanKursiStudioDeluxeWish();
+                                tampilkanRingkasan();
+                                prosesPembayaran();
+                            }
+                        } else if (filmTerpilih.equalsIgnoreCase("The Marvels")) {
+                            PemilihanStudioTheMarvels();
+                            if (studioInput == 0) {
+                                PemilihanJumlahTiket();
+                                PemilihanKursiStudioDeluxeTheMarvels();
+                                tampilkanRingkasan();
+                                prosesPembayaran();
+                            } else if (studioInput == 1) {
+                                PemilihanJumlahTiket();
+                                PemilihanKursiStudioIMAXTheMarvels();
+                                tampilkanRingkasan();
+                                prosesPembayaran();
+                            }
+                        } else if (filmTerpilih.equalsIgnoreCase("Napoleon")) {
+                            PemilihanStudioNapoleon();
+                            if (studioInput == 0) {
+                                PemilihanJumlahTiket();
+                                PemilihanKursiStudioThePremiereNapoleon();
+                                tampilkanRingkasan();
+                                prosesPembayaran();
+                            }
+                        }
+                        break;
+
+                        case 2:
+                            wantsToLogout = true;
+                            System.out.println("Logout " + loggedInUser);
+                            break;
+
+                        default:
+                            System.out.println("Pilihan tidak valid. Silakan pilih lagi.");
+                            break;
+                    }
+                }
+
+                // Ketika logout, reset isLoggedIn sehingga program kembali ke tahap login
+                isLoggedIn = false;
             } else {
                 System.out.println("Login gagal. Periksa kembali nama pengguna dan kata sandi.");
-            }
-        }
-        PemilihanFILM();
-        filmTerpilih = jdl_film[jdlinput];
-
-        if (filmTerpilih.equalsIgnoreCase("WISH")) {
-            PemilihanStudioWish();
-            if (studioInput == 0) {
-                PemilihanJumlahTiket();
-                PemilihanKursiStudioDeluxeWish();
-                tampilkanRingkasan();
-                prosesPembayaran();
-            }
-        } else if (filmTerpilih.equalsIgnoreCase("The Marvels")) {
-            PemilihanStudioTheMarvels();
-            if (studioInput == 0) {
-                PemilihanJumlahTiket();
-                PemilihanKursiStudioDeluxeTheMarvels();
-                tampilkanRingkasan();
-                prosesPembayaran();
-            } else if (studioInput == 1) {
-                PemilihanJumlahTiket();
-                PemilihanKursiStudioIMAXTheMarvels();
-                tampilkanRingkasan();
-                prosesPembayaran();
-            }
-        } else if (filmTerpilih.equalsIgnoreCase("Napoleon")) {
-            PemilihanStudioNapoleon();
-            if (studioInput == 0) {
-                PemilihanJumlahTiket();
-                PemilihanKursiStudioThePremiereNapoleon();
-                tampilkanRingkasan();
-                prosesPembayaran();
             }
         }
     }
@@ -120,10 +174,12 @@ public class DasprKasaran {
         System.out.println("Studio: " + getStudioTerpilih());
         System.out.println("Jumlah Tiket: " + jumlahTiket);
         System.out.println("Pilihan Kursi: ");
-        for (int i = 0; i < indexKursiTerpilih; i++) {
+        for (int i = 0; i < indexKursiTerpilih; i++) 
+        {
             System.out.println(kursiTerpilih[i]);
         }
         System.out.println("===============================");
+        kursiTerpilih = new String[25]; // Reset array kursiTerpilih
     }
 
     static void prosesPembayaran() {
@@ -243,7 +299,7 @@ public class DasprKasaran {
     }
     static void PemilihanKursiStudioDeluxeWish(){
         System.out.println("____________________________________________________");
-        System.out.println("|Studio         |      LAYAR      |                |");
+        System.out.println("|Studio         |      LAYAR      |           17.55|");
         System.out.println("|Deluxe         ===================                |");
         System.out.println("|                                                  |");
         for (int i = 0; i < 5; i++) {
