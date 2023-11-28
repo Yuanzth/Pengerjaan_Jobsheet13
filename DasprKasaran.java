@@ -180,6 +180,7 @@ public class DasprKasaran {
         }
         System.out.println("===============================");
         kursiTerpilih = new String[25]; // Reset array kursiTerpilih
+        indexKursiTerpilih = 0; //Reset index kursi
     }
 
     static void prosesPembayaran() {
@@ -299,7 +300,7 @@ public class DasprKasaran {
     }
     static void PemilihanKursiStudioDeluxeWish(){
         System.out.println("____________________________________________________");
-        System.out.println("|Studio         |      LAYAR      |           17.55|");
+        System.out.println("|Studio         |      LAYAR      |                |");
         System.out.println("|Deluxe         ===================                |");
         System.out.println("|                                                  |");
         for (int i = 0; i < 5; i++) {
