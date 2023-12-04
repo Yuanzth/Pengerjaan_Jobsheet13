@@ -4,6 +4,8 @@ public class DasprKasaran {
 
     static String[] usernames = {"kasir1", "kasir2"};
     static String[] passwords = {"123", "456"};
+    static String[] userAdmin = {"admin"};
+    static String[] passAdmin = {"admin123"};
     static Scanner input = new Scanner(System.in);
 
     //>>>>>>>>>>>>>>>>>>>>>>>> Kebutuhan Untuk Pemilihan Film <<<<<<<<<<<<<<<<<<<<<<<<<<<//
@@ -24,19 +26,25 @@ public class DasprKasaran {
     static int[] hrg_stdNapoleon = {50000};
     //>>>>>>>>>>>>>>>>>>>>>>> Kebutuhan Untuk Pemilihan Studio <<<<<<<<<<<<<<<<<<<<<<<<<<//
 
-    // >>>>>>> Variabel dan fungsi untuk jumlah tiket dan pemilihan kursi <<<<<<<<
+    // >>>>>>> Variabel dan fungsi untuk jumlah tiket dan pemilihan kursi <<<<<<<< //
     static int jumlahTiket = 0;
     static String[] kursiTerpilih = new String[25]; // Menyimpan indeks kursi yang dipilih
 
     static void PemilihanJumlahTiket() {
         System.out.print("Masukkan jumlah tiket yang ingin dipesan: ");
         jumlahTiket = inputUntukJdlFilm.nextInt();
-        if (jumlahTiket <= 0) {
+        if (jumlahTiket > 25) {
+            System.out.println("Kursi di dalam studio hanya berjumlah 25");
+        }
+        else if (jumlahTiket <= 0)
+        {
             System.out.println("Jumlah tiket tidak valid.");
             PemilihanJumlahTiket();
         }
+        else 
+        {}
     }
-    // >>>>>>> Variabel dan fungsi untuk jumlah tiket dan pemilihan kursi <<<<<<<<
+    // >>>>>>> Variabel dan fungsi untuk jumlah tiket dan pemilihan kursi <<<<<<<< //
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>> Kebutuhan Untuk Kursi Studio <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
     static Scanner inputUntukPilihKursi = new Scanner(System.in);
@@ -47,6 +55,20 @@ public class DasprKasaran {
     static int indexKursiTerpilih = 0; // Menunjukkan indeks terakhir kursi terpilih
     //>>>>>>>>>>>>>>>>>>>>>>>>>> Kebutuhan Untuk Kursi Studio <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
 
+    //>>>>>>>>>>>>>>>>>>>>>>>>>> 
+    static int[] historyJumlahTiketKasir1 = new int[100]; // Menggunakan array dengan ukuran tertentu
+    static int[] historyJumlahTiketKasir2 = new int[100];
+    static int[] historyPendapatanKasir1 = new int[100];
+    static int[] historyPendapatanKasir2 = new int[100];
+    static int indexHistoryKasir1 = 0; // Menunjukkan indeks terakhir dalam array
+    static int indexHistoryKasir2 = 0;
+    static String loggedInUser = "";
+    static String[] historyFilm = new String[100];
+    static String[] historyStudio = new String[100];
+    static int[] historyJumlahTiket = new int[100];
+    static int[] historyPendapatan = new int[100];
+    static int indexHistory = 0;    
+    //>>>>>>>>>>>>>>>>>>>>>>>>>> 
     public static void main(String[] args) {
         fillArrayWithZero(StudioDeluxeWish);
         fillArrayWithZero(StudioIMAXTheMarvels);
@@ -58,21 +80,24 @@ public class DasprKasaran {
         while (programRunning) {
             System.out.println("Menu Utama:");
             System.out.println("1. Login sebagai Kasir");
-            System.out.println("2. Exit");
+            System.out.println("2. Login sebagai Admin");
+            System.out.println("3. Exit");
 
             System.out.print("Pilih opsi: ");
             int menuUtamaChoice = input.nextInt();
 
             switch (menuUtamaChoice) {
                 case 1:
-                    login();
+                    loginKasir();
                     break;
-
                 case 2:
+                    System.out.println("");
+                    loginAdmin();
+                    break;
+                case 3:
                     programRunning = false;
                     System.out.println("Program berakhir.");
                     break;
-
                 default:
                     System.out.println("Pilihan tidak valid. Silakan pilih lagi.");
                     break;
@@ -81,11 +106,9 @@ public class DasprKasaran {
     }
 
 //=======================================================================================================//
-
-    static void login() {
+    static void loginKasir() {
         boolean isLoggedIn = false;
-        String loggedInUser = "";
-
+        
         while (!isLoggedIn) {
             Scanner inputuser = new Scanner(System.in);
             System.out.print("Masukkan nama pengguna: ");
@@ -149,7 +172,7 @@ public class DasprKasaran {
                                 prosesPembayaran();
                             }
                         }
-                        break;
+                        break;                     
 
                         case 2:
                             wantsToLogout = true;
@@ -161,7 +184,6 @@ public class DasprKasaran {
                             break;
                     }
                 }
-
                 // Ketika logout, reset isLoggedIn sehingga program kembali ke tahap login
                 isLoggedIn = false;
             } else {
@@ -169,7 +191,63 @@ public class DasprKasaran {
             }
         }
     }
-    
+    static void loginAdmin(){
+        boolean isLoggedIn = false;
+
+        while (!isLoggedIn) {
+            Scanner inputuser = new Scanner(System.in);
+            System.out.print("Masukkan nama pengguna: ");
+            String username = inputuser.nextLine();
+            System.out.print("Masukkan kata sandi: ");
+            String password = input.nextLine();
+            int userIndex = -1;
+            for (int i = 0; i < userAdmin.length; i++) {
+                if (userAdmin[i].equals(username) && passAdmin[i].equals(password)) {
+                    userIndex = i;
+                    break;
+                }
+            }
+            if (userIndex >= 0) {
+                isLoggedIn = true;
+                loggedInUser = username;
+                System.out.println("Selamat datang, " + loggedInUser + "!");
+
+                boolean wantsToLogout = false;
+
+                while (!wantsToLogout) {
+                    System.out.println("Menu:");
+                    System.out.println("1. Tampilkan History Transaksi Kasir");
+                    System.out.println("2. Tampilkan History Transaksi Keseluruhan");
+                    System.out.println("3. Logout");
+
+                    System.out.print("Pilih opsi: ");
+                    int menuChoice = input.nextInt();
+
+                    switch (menuChoice) {
+                        case 1:
+                            tampilkanHistoryTransaksi();                            
+                            break;
+                        case 2:
+                            tampilkanHistoryTransaksiKeseluruhan();
+                            break;                          
+
+                        case 3:
+                            wantsToLogout = true;
+                            System.out.println("Logout " + loggedInUser);
+                            break;
+
+                        default:
+                            System.out.println("Pilihan tidak valid. Silakan pilih lagi.");
+                            break;
+                    }
+                }
+                // Ketika logout, reset isLoggedIn sehingga program kembali ke tahap login
+                isLoggedIn = false;
+            } else {
+                System.out.println("Login gagal. Periksa kembali nama pengguna dan kata sandi.");
+            }
+        }        
+    }
     static void tampilkanRingkasan() {
         System.out.println("===== Ringkasan Pemesanan =====");
         System.out.println("Film: " + filmTerpilih);
@@ -184,10 +262,25 @@ public class DasprKasaran {
         kursiTerpilih = new String[25]; // Reset array kursiTerpilih
         indexKursiTerpilih = 0; //Reset index kursi
     }
-
     static void prosesPembayaran() {
         System.out.println("===== Proses Pembayaran =====");
         System.out.println("Total Harga: " + hitungTotalHarga());
+        if (loggedInUser.equals("kasir1")) {
+            historyJumlahTiketKasir1[indexHistoryKasir1] = jumlahTiket;
+            historyPendapatanKasir1[indexHistoryKasir1] = hitungTotalHarga();
+            indexHistoryKasir1++;
+        } else if (loggedInUser.equals("kasir2")) {
+            historyJumlahTiketKasir2[indexHistoryKasir2] = jumlahTiket;
+            historyPendapatanKasir2[indexHistoryKasir2] = hitungTotalHarga();
+            indexHistoryKasir2++;
+        }
+        //logika untuk merekam history transaksi secara keseluruhan
+        historyFilm[indexHistory] = filmTerpilih;
+        historyStudio[indexHistory] = getStudioTerpilih();
+        historyJumlahTiket[indexHistory] = jumlahTiket;
+        historyPendapatan[indexHistory] = hitungTotalHarga();
+        indexHistory++;
+    
         System.out.println("Pilih metode pembayaran:");
         System.out.println("1. Tunai");
         System.out.println("2. Kartu Kredit");
@@ -202,21 +295,52 @@ public class DasprKasaran {
             System.out.println("Metode pembayaran tidak valid.");
         }
     }
-
+    static void tampilkanHistoryTransaksi() {
+        System.out.println("===== History Transaksi =====");
+        System.out.println("Kasir 1:");
+        for (int i = 0; i < indexHistoryKasir1; i++) {
+            System.out.println("Transaksi " + (i + 1) + ": Jumlah Tiket = " + historyJumlahTiketKasir1[i] +
+                    ", Pendapatan = " + historyPendapatanKasir1[i]);
+        }
+        System.out.println("Kasir 2:");
+        for (int i = 0; i < indexHistoryKasir2; i++) {
+            System.out.println("Transaksi " + (i + 1) + ": Jumlah Tiket = " + historyJumlahTiketKasir2[i] +
+                    ", Pendapatan = " + historyPendapatanKasir2[i]);
+        }
+        System.out.println("=============================");
+    }    
     static int hitungTotalHarga() {
         int hargaTiket = 0;
-        if (filmTerpilih.equalsIgnoreCase("WISH")) {
+        if (filmTerpilih.equalsIgnoreCase("WISH")) 
+        {
             hargaTiket = hrg_stdWISH[studioInput] * jumlahTiket;
-        } else if (filmTerpilih.equalsIgnoreCase("The Marvels")) {
-            if (studioInput == 0) {
+        } 
+        else if (filmTerpilih.equalsIgnoreCase("The Marvels")) 
+        {
+            if (studioInput == 0) 
+            {
                 hargaTiket = hrg_stdTheMarvels[0] * jumlahTiket;
-            } else if (studioInput == 1) {
+            } 
+            else if (studioInput == 1) 
+            {
                 hargaTiket = hrg_stdTheMarvels[1] * jumlahTiket;
             }
-        } else if (filmTerpilih.equalsIgnoreCase("Napoleon")) {
+        } 
+        else if (filmTerpilih.equalsIgnoreCase("Napoleon")) 
+        {
             hargaTiket = hrg_stdNapoleon[studioInput] * jumlahTiket;
         }
         return hargaTiket;
+    }
+    static void tampilkanHistoryTransaksiKeseluruhan() {
+        System.out.println("===== History Transaksi Keseluruhan =====");
+        for (int i = 0; i < indexHistory; i++) {
+            System.out.println("Transaksi " + (i + 1) + ": Film = " + historyFilm[i] +
+                    ", Studio = " + historyStudio[i] +
+                    ", Jumlah Tiket = " + historyJumlahTiket[i] +
+                    ", Pendapatan = " + historyPendapatan[i]);
+        }
+        System.out.println("=========================================");
     }
 
     static String getStudioTerpilih() {
