@@ -5,6 +5,7 @@ public class DasprKasaran {
     static String[] usernames = {"kasir1", "kasir2"};
     static String[] passwords = {"123", "456"};
     static Scanner input = new Scanner(System.in);
+
     //>>>>>>>>>>>>>>>>>>>>>>>> Kebutuhan Untuk Pemilihan Film <<<<<<<<<<<<<<<<<<<<<<<<<<<//
     static int jdlinput = -1; // Inisialisasi dengan nilai default yang tidak valid
     static Scanner inputUntukJdlFilm = new Scanner(System.in);
@@ -78,6 +79,8 @@ public class DasprKasaran {
             }
         }
     }
+
+//=======================================================================================================//
 
     static void login() {
         boolean isLoggedIn = false;
@@ -166,8 +169,7 @@ public class DasprKasaran {
             }
         }
     }
-
-//=======================================================================================================//
+    
     static void tampilkanRingkasan() {
         System.out.println("===== Ringkasan Pemesanan =====");
         System.out.println("Film: " + filmTerpilih);
