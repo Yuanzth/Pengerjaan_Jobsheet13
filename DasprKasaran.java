@@ -91,7 +91,6 @@ public class DasprKasaran {
                     loginKasir();
                     break;
                 case 2:
-                    System.out.println("");
                     loginAdmin();
                     break;
                 case 3:
@@ -107,88 +106,100 @@ public class DasprKasaran {
 
 //=======================================================================================================//
     static void loginKasir() {
-        boolean isLoggedIn = false;
-        
-        while (!isLoggedIn) {
-            Scanner inputuser = new Scanner(System.in);
-            System.out.print("Masukkan nama pengguna: ");
-            String username = inputuser.nextLine();
-            System.out.print("Masukkan kata sandi: ");
-            String password = input.nextLine();
-            int userIndex = -1;
-            for (int i = 0; i < usernames.length; i++) {
-                if (usernames[i].equals(username) && passwords[i].equals(password)) {
-                    userIndex = i;
-                    break;
-                }
-            }
-            if (userIndex >= 0) {
-                isLoggedIn = true;
-                loggedInUser = username;
-                System.out.println("Selamat datang, " + loggedInUser + "!");
 
-                boolean wantsToLogout = false;
+        System.out.println("Pilih opsi untuk melanjutkan!:");
+        System.out.println("1. Lanjut Sebagai Kasir");
+        System.out.println("2. Kembali ke Menu Utama");
+        System.out.print("Pilih opsi: ");
+        int exitChoice = input.nextInt();
+        switch (exitChoice) {
+            case 1:
+                boolean isLoggedIn = false;
+                while (!isLoggedIn) {
+                    Scanner inputuser = new Scanner(System.in);
+                    System.out.print("Masukkan nama pengguna: ");
+                    String username = inputuser.nextLine();
+                    System.out.print("Masukkan kata sandi: ");
+                    String password = input.nextLine();
+                    int userIndex = -1;
+                    for (int i = 0; i < usernames.length; i++) {
+                        if (usernames[i].equals(username) && passwords[i].equals(password)) {
+                            userIndex = i;
+                            break;
+                        }
+                    }
+                    if (userIndex >= 0) {
+                        isLoggedIn = true;
+                        loggedInUser = username;
+                        System.out.println("Selamat datang, " + loggedInUser + "!");
 
-                while (!wantsToLogout) {
-                    System.out.println("Menu:");
-                    System.out.println("1. Pemesanan Tiket");
-                    System.out.println("2. Logout");
+                        boolean wantsToLogout = false;
 
-                    System.out.print("Pilih opsi: ");
-                    int menuChoice = input.nextInt();
+                        while (!wantsToLogout) {
+                            System.out.println("Menu:");
+                            System.out.println("1. Pemesanan Tiket");
+                            System.out.println("2. Logout");
 
-                    switch (menuChoice) {
-                        case 1:
-                        PemilihanFILM();
-                        filmTerpilih = jdl_film[jdlinput];
+                            System.out.print("Pilih opsi: ");
+                            int menuChoice = input.nextInt();
 
-                        if (filmTerpilih.equalsIgnoreCase("WISH")) {
-                            PemilihanStudioWish();
-                            if (studioInput == 0) {
-                                PemilihanJumlahTiket();
-                                PemilihanKursiStudioDeluxeWish();
-                                tampilkanRingkasan();
-                                prosesPembayaran();
-                            }
-                        } else if (filmTerpilih.equalsIgnoreCase("The Marvels")) {
-                            PemilihanStudioTheMarvels();
-                            if (studioInput == 0) {
-                                PemilihanJumlahTiket();
-                                PemilihanKursiStudioDeluxeTheMarvels();
-                                tampilkanRingkasan();
-                                prosesPembayaran();
-                            } else if (studioInput == 1) {
-                                PemilihanJumlahTiket();
-                                PemilihanKursiStudioIMAXTheMarvels();
-                                tampilkanRingkasan();
-                                prosesPembayaran();
-                            }
-                        } else if (filmTerpilih.equalsIgnoreCase("Napoleon")) {
-                            PemilihanStudioNapoleon();
-                            if (studioInput == 0) {
-                                PemilihanJumlahTiket();
-                                PemilihanKursiStudioThePremiereNapoleon();
-                                tampilkanRingkasan();
-                                prosesPembayaran();
+                            switch (menuChoice) {
+                                case 1:
+                                PemilihanFILM();
+                                filmTerpilih = jdl_film[jdlinput];
+
+                                if (filmTerpilih.equalsIgnoreCase("WISH")) {
+                                    PemilihanStudioWish();
+                                    if (studioInput == 0) {
+                                        PemilihanJumlahTiket();
+                                        PemilihanKursiStudioDeluxeWish();
+                                        tampilkanRingkasan();
+                                        prosesPembayaran();
+                                    }
+                                } else if (filmTerpilih.equalsIgnoreCase("The Marvels")) {
+                                    PemilihanStudioTheMarvels();
+                                    if (studioInput == 0) {
+                                        PemilihanJumlahTiket();
+                                        PemilihanKursiStudioDeluxeTheMarvels();
+                                        tampilkanRingkasan();
+                                        prosesPembayaran();
+                                    } else if (studioInput == 1) {
+                                        PemilihanJumlahTiket();
+                                        PemilihanKursiStudioIMAXTheMarvels();
+                                        tampilkanRingkasan();
+                                        prosesPembayaran();
+                                    }
+                                } else if (filmTerpilih.equalsIgnoreCase("Napoleon")) {
+                                    PemilihanStudioNapoleon();
+                                    if (studioInput == 0) {
+                                        PemilihanJumlahTiket();
+                                        PemilihanKursiStudioThePremiereNapoleon();
+                                        tampilkanRingkasan();
+                                        prosesPembayaran();
+                                    }
+                                }
+                                break;                     
+
+                                case 2:
+                                    wantsToLogout = true;
+                                    System.out.println("Logout " + loggedInUser);
+                                    break;
+
+                                default:
+                                    System.out.println("Pilihan tidak valid. Silakan pilih lagi.");
+                                    break;
                             }
                         }
-                        break;                     
-
-                        case 2:
-                            wantsToLogout = true;
-                            System.out.println("Logout " + loggedInUser);
-                            break;
-
-                        default:
-                            System.out.println("Pilihan tidak valid. Silakan pilih lagi.");
-                            break;
+                        // Ketika logout, reset isLoggedIn sehingga program kembali ke tahap login
+                        isLoggedIn = false;
+                    } else {
+                        System.out.println("Login gagal. Periksa kembali nama pengguna dan kata sandi.");
                     }
-                }
-                // Ketika logout, reset isLoggedIn sehingga program kembali ke tahap login
-                isLoggedIn = false;
-            } else {
-                System.out.println("Login gagal. Periksa kembali nama pengguna dan kata sandi.");
-            }
+                    }
+                    break;
+                case 2:
+                
+                break;
         }
     }
     static void loginAdmin(){
