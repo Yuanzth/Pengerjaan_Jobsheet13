@@ -78,14 +78,17 @@ public class DasprKasaran {
         boolean programRunning = true;
 
         while (programRunning) {
-            System.out.println("Menu Utama:");
-            System.out.println("1. Login sebagai Kasir");
-            System.out.println("2. Login sebagai Admin");
-            System.out.println("3. Exit");
+            System.out.println("|======================================|");
+            System.out.println("|              Menu Utama              |");
+            System.out.println("|======================================|");
+            System.out.println("|        1. Login sebagai Kasir        |");
+            System.out.println("|        2. Login sebagai Admin        |");
+            System.out.println("|        3. Exit                       |");
+            System.out.println("|======================================|");
 
-            System.out.print("Pilih opsi: ");
+            System.out.print("|     Pilih opsi: ");
             int menuUtamaChoice = input.nextInt();
-
+            System.out.println("|======================================|");
             switch (menuUtamaChoice) {
                 case 1:
                     loginKasir();
@@ -109,12 +112,15 @@ public class DasprKasaran {
         boolean isLoggedIn = false;
 
         while (!isLoggedIn) {
-            System.out.println("Pilih opsi untuk melanjutkan!:");
-            System.out.println("1. Lanjut Sebagai Kasir");
-            System.out.println("2. Kembali ke Menu Utama");
-            System.out.print("Pilih opsi: ");
+            
+            System.out.println("|     Pilih opsi untuk melanjutkan!    |");
+            System.out.println("|======================================|");
+            System.out.println("|     1. Lanjut Sebagai Kasir          |");
+            System.out.println("|     2. Kembali ke Menu Utama         |");
+            System.out.println("|======================================|");
+            System.out.print("|     Pilih opsi: ");
             int exitChoice = input.nextInt();
-
+            System.out.println("|======================================|");
             switch (exitChoice) {
                 case 1:
                     isLoggedIn = validateLoginAsKasir();
@@ -134,13 +140,15 @@ public class DasprKasaran {
         boolean isLoggedIn = true; // Tambahkan variabel untuk status login
     
         while (isLoggedIn) {
-            System.out.println("Menu:");
-            System.out.println("1. Pemesanan Tiket");
-            System.out.println("2. Logout");
+            System.out.println("|               Menu Kasir             |");
+            System.out.println("|======================================|");
+            System.out.println("|          1. Pemesanan Tiket          |");
+            System.out.println("|          2. Logout                   |");
+            System.out.println("|======================================|");
     
-            System.out.print("Pilih opsi: ");
+            System.out.print("|     Pilih opsi: ");
             int menuChoice = input.nextInt();
-    
+            System.out.println("|======================================|");
             switch (menuChoice) {
                 case 1:
                     PemilihanFILM();
@@ -195,20 +203,23 @@ public class DasprKasaran {
         Scanner inputUser = new Scanner(System.in);
         String username, password;
     
-        System.out.print("Masukkan nama pengguna: ");
+        System.out.print("|    Masukkan nama pengguna: ");
         username = inputUser.nextLine();  // Gunakan inputUser di sini
-    
-        System.out.print("Masukkan kata sandi: ");
+        System.out.println("|======================================|");
+        System.out.print("|    Masukkan kata sandi: ");
         password = inputUser.nextLine();  // Juga gunakan inputUser di sini
-    
+        System.out.println("|======================================|");
         for (int i = 0; i < usernames.length; i++) {
             if (usernames[i].equals(username) && passwords[i].equals(password)) {
                 loggedInUser = username; // Set pengguna yang sedang login
-                System.out.println("Selamat datang, " + loggedInUser + "!");
+                System.out.println("|      Selamat datang, " + loggedInUser + "!           |");
+                System.out.println("|======================================|");
                 return true; // Login sukses
             }
         }
-        System.out.println("Login gagal. Periksa kembali nama pengguna dan kata sandi.");
+        System.out.println("|======================================|");
+        System.out.println("|     Login gagal, Periksa Kembali!    |");
+        System.out.println("|======================================|");
         return false; // Login gagal
     }
 //======================================================================================//
@@ -216,12 +227,14 @@ public class DasprKasaran {
         boolean isLoggedIn = false;
 
         while (!isLoggedIn) {
-            System.out.println("Pilih opsi untuk melanjutkan!:");
-            System.out.println("1. Lanjut Sebagai Kasir");
-            System.out.println("2. Kembali ke Menu Utama");
-            System.out.print("Pilih opsi: ");
+            System.out.println("|     Pilih opsi untuk melanjutkan!    |");
+            System.out.println("|======================================|");
+            System.out.println("|     1. Lanjut Sebagai Admin          |");
+            System.out.println("|     2. Kembali ke Menu Utama         |");
+            System.out.println("|======================================|");
+            System.out.print("|     Pilih opsi: ");
             int exitChoice = input.nextInt();
-
+            System.out.println("|======================================|");
             switch (exitChoice) {
                 case 1:
                     isLoggedIn = validateLoginAsAdmin();
@@ -248,7 +261,7 @@ public class DasprKasaran {
         password = inputUser.nextLine();  // Juga gunakan inputUser di sini
     
         for (int i = 0; i < usernames.length; i++) {
-            if (usernames[i].equals(username) && passwords[i].equals(password)) {
+            if (userAdmin[i].equals(username) && passAdmin[i].equals(password)) {
                 loggedInUser = username; // Set pengguna yang sedang login
                 System.out.println("Selamat datang, " + loggedInUser + "!");
                 return true; // Login sukses
@@ -258,61 +271,35 @@ public class DasprKasaran {
         return false; // Login gagal
     }
     static void processAdminMenu(){
-        boolean isLoggedIn = false;
+        
+        boolean isLoggedIn = true;
 
-        while (!isLoggedIn) {
-            Scanner inputuser = new Scanner(System.in);
-            System.out.print("Masukkan nama pengguna: ");
-            String username = inputuser.nextLine();
-            System.out.print("Masukkan kata sandi: ");
-            String password = input.nextLine();
-            int userIndex = -1;
-            for (int i = 0; i < userAdmin.length; i++) {
-                if (userAdmin[i].equals(username) && passAdmin[i].equals(password)) {
-                    userIndex = i;
+        while (isLoggedIn) {
+            System.out.println("Menu:");
+            System.out.println("1. Tampilkan History Transaksi Kasir");
+            System.out.println("2. Tampilkan History Transaksi Keseluruhan");
+            System.out.println("3. Logout");
+
+            System.out.print("Pilih opsi: ");
+            int menuChoice = input.nextInt();
+
+            switch (menuChoice) {
+                case 1:
+                    tampilkanHistoryTransaksi();                            
                     break;
-                }
+                case 2:
+                    tampilkanHistoryTransaksiKeseluruhan();
+                    break;                          
+
+                case 3:
+                    System.out.println("Logout " + loggedInUser);
+                    isLoggedIn = false; // Set status login menjadi false
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid. Silakan pilih lagi.");
+                    break;
             }
-            if (userIndex >= 0) {
-                isLoggedIn = true;
-                loggedInUser = username;
-                System.out.println("Selamat datang, " + loggedInUser + "!");
-
-                boolean wantsToLogout = false;
-
-                while (!wantsToLogout) {
-                    System.out.println("Menu:");
-                    System.out.println("1. Tampilkan History Transaksi Kasir");
-                    System.out.println("2. Tampilkan History Transaksi Keseluruhan");
-                    System.out.println("3. Logout");
-
-                    System.out.print("Pilih opsi: ");
-                    int menuChoice = input.nextInt();
-
-                    switch (menuChoice) {
-                        case 1:
-                            tampilkanHistoryTransaksi();                            
-                            break;
-                        case 2:
-                            tampilkanHistoryTransaksiKeseluruhan();
-                            break;                          
-
-                        case 3:
-                            wantsToLogout = true;
-                            System.out.println("Logout " + loggedInUser);
-                            break;
-
-                        default:
-                            System.out.println("Pilihan tidak valid. Silakan pilih lagi.");
-                            break;
-                    }
-                }
-                // Ketika logout, reset isLoggedIn sehingga program kembali ke tahap login
-                isLoggedIn = false;
-            } else {
-                System.out.println("Login gagal. Periksa kembali nama pengguna dan kata sandi.");
-            }
-        }        
+        }  
     }
     static void tampilkanRingkasan() {
         System.out.println("===== Ringkasan Pemesanan =====");
