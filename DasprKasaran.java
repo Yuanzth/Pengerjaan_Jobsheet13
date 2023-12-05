@@ -212,12 +212,12 @@ public class DasprKasaran {
         for (int i = 0; i < usernames.length; i++) {
             if (usernames[i].equals(username) && passwords[i].equals(password)) {
                 loggedInUser = username; // Set pengguna yang sedang login
-                System.out.println("|      Selamat datang, " + loggedInUser + "!           |");
+                System.out.println("|      Selamat datang, " + loggedInUser + "!         |");
                 System.out.println("|======================================|");
                 return true; // Login sukses
             }
         }
-        System.out.println("|======================================|");
+        
         System.out.println("|     Login gagal, Periksa Kembali!    |");
         System.out.println("|======================================|");
         return false; // Login gagal
@@ -263,7 +263,7 @@ public class DasprKasaran {
         for (int i = 0; i < usernames.length; i++) {
             if (userAdmin[i].equals(username) && passAdmin[i].equals(password)) {
                 loggedInUser = username; // Set pengguna yang sedang login
-                System.out.println("Selamat datang, " + loggedInUser + "!");
+                System.out.println("Selamat datang, " + loggedInUser + "!         |");
                 return true; // Login sukses
             }
         }
