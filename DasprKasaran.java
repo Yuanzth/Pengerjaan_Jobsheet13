@@ -187,7 +187,7 @@ public class DasprKasaran {
                     break;
     
                 case 2:
-                    System.out.println("Logout " + loggedInUser);
+                    System.out.println("[Logout " + loggedInUser + "]" );
                     isLoggedIn = false; // Set status login menjadi false
                     break;
     
@@ -253,21 +253,25 @@ public class DasprKasaran {
     static boolean validateLoginAsAdmin() {
         Scanner inputUser = new Scanner(System.in);
         String username, password;
-    
-        System.out.print("Masukkan nama pengguna: ");
+
+        System.out.print("|    Masukkan nama pengguna: ");
         username = inputUser.nextLine();  // Gunakan inputUser di sini
+        System.out.println("|======================================|");
+
     
-        System.out.print("Masukkan kata sandi: ");
+        System.out.print("|    Masukkan kata sandi: ");
         password = inputUser.nextLine();  // Juga gunakan inputUser di sini
     
         for (int i = 0; i < usernames.length; i++) {
             if (userAdmin[i].equals(username) && passAdmin[i].equals(password)) {
                 loggedInUser = username; // Set pengguna yang sedang login
-                System.out.println("Selamat datang, " + loggedInUser + "!         |");
+                System.out.println("|      Selamat datang, " + loggedInUser + "!         |");
+                System.out.println("|======================================|");
                 return true; // Login sukses
             }
         }
-        System.out.println("Login gagal. Periksa kembali nama pengguna dan kata sandi.");
+        System.out.println("|     Login gagal, Periksa Kembali!    |");
+        System.out.println("|======================================|");
         return false; // Login gagal
     }
     static void processAdminMenu(){
@@ -275,12 +279,16 @@ public class DasprKasaran {
         boolean isLoggedIn = true;
 
         while (isLoggedIn) {
-            System.out.println("Menu:");
-            System.out.println("1. Tampilkan History Transaksi Kasir");
-            System.out.println("2. Tampilkan History Transaksi Keseluruhan");
-            System.out.println("3. Logout");
+            System.out.println("                                                                                      ");
+            System.out.println("|=====================================================================================|");
+            System.out.println("|                                            Menu:                                    |");
+            System.out.println("|-------------------------------------------------------------------------------------|");
+            System.out.println("| 1. Tampilkan History Transaksi Kasir                                                |");
+            System.out.println("| 2. Tampilkan History Transaksi Keseluruhan                                          |");
+            System.out.println("| 3. Logout                                                                           |");
+            System.out.println("|-------------------------------------------------------------------------------------|");
 
-            System.out.print("Pilih opsi: ");
+            System.out.print("| Pilih opsi: ");
             int menuChoice = input.nextInt();
 
             switch (menuChoice) {
@@ -292,11 +300,13 @@ public class DasprKasaran {
                     break;                          
 
                 case 3:
-                    System.out.println("Logout " + loggedInUser);
+                    System.out.println("[Logout " + loggedInUser + "]" );
                     isLoggedIn = false; // Set status login menjadi false
                     break;
                 default:
-                    System.out.println("Pilihan tidak valid. Silakan pilih lagi.");
+                    System.out.println("|-------------------------------------------------------------------------------------|");
+                    System.out.println("|                        Pilihan tidak valid. Silakan pilih lagi.                     |");
+                    System.out.println("|-------------------------------------------------------------------------------------|");
                     break;
             }
         }  
@@ -375,6 +385,7 @@ public class DasprKasaran {
     }
     static void tampilkanHistoryTransaksi() 
     {
+        System.out.println("                                                                                      ");
         System.out.println("|=====================================================================================|");
         System.out.println("|                                  - History Transaksi -                              |");
         System.out.println("|=====================================================================================|");
@@ -418,6 +429,7 @@ public class DasprKasaran {
     }
     static void tampilkanHistoryTransaksiKeseluruhan() 
     {
+        System.out.println("                                                                                      ");
         System.out.println("|=====================================================================================|");
         System.out.println("|                            - History Transaksi Keseluruhan -                        |");
         System.out.println("|=====================================================================================|");
@@ -597,20 +609,24 @@ public class DasprKasaran {
             System.out.println("|                                                  |");
         }
         System.out.println("|_______|1|_____|2|_____|3|_____|4|_____|5|________|");
-        System.out.println("Silahkan memilih Kursi untuk Studio IMAX: ");
+        System.out.println("|==================================================|");
+        System.out.println("|    Silahkan memilih Kursi untuk Studio IMAX:     |");
         for (int i = 0; i < jumlahTiket; i++)
         {     
-            System.out.println("Kursi ke-" + (i + 1) + ". ");
-            System.out.print("Pilih kolom Baris (A-E) dan 0 untuk cancel: ");
+            System.out.println("|--------------------------------------------------|");
+            System.out.println("|                    Kursi ke-" + (i + 1) + ". " + "                  |");
+            System.out.println("|--------------------------------------------------|");
+            System.out.print("|  Pilih kolom Baris (A-E) dan 0 untuk cancel: " );
             char barisHurufInput = inputUntukPilihKursi.next().charAt(0);
             int baris = barisHurufInput - 'A' + 1;
-            System.out.print("Pilih kolom Kursi (1-5) dan 0 untuk cancel: ");
+            System.out.print("|  Pilih kolom Kursi (1-5) dan 0 untuk cancel: ");
             int kolom = inputUntukPilihKursi.nextInt();
 
             if (barisHurufInput == '0' || kolom == 0) 
             {
-                System.out.println("Pemilihan kursi dibatalkan.");
-                break; // Jika pembatalan, keluar dari loop
+                System.out.println("|--------------------------------------------------|");
+                System.out.println("|            Pemilihan kursi dibatalkan.           |");
+                System.out.println("|==================================================|");                break; // Jika pembatalan, keluar dari loop
             } 
             else if (baris >= 1 && baris <= 5 && kolom >= 1 && kolom <= 5) 
             {
