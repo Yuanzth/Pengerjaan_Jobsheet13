@@ -627,6 +627,7 @@ public class DasprKasaran {
                 System.out.println("|--------------------------------------------------|");
                 System.out.println("|            Pemilihan kursi dibatalkan.           |");
                 System.out.println("|==================================================|");                break; // Jika pembatalan, keluar dari loop
+                break; // Jika pembatalan, keluar dari loop
             } 
             else if (baris >= 1 && baris <= 5 && kolom >= 1 && kolom <= 5) 
             {
@@ -639,17 +640,19 @@ public class DasprKasaran {
                 } 
                 else 
                 {
-                    System.out.println("Kursi sudah terisi. Silakan pilih kursi yang lain.");
+                    System.out.println("|Kursi sudah terisi, silahkan pilih kursi yang lain|");
                     i--; // Mengulang input untuk kursi yang sudah terisi
                 }
             } 
             else 
-            {
-                System.out.println("Nomor baris atau kolom tidak valid. Silakan coba lagi.");
+            {   
+                System.out.println("|--------------------------------------------------|");    
+                System.out.println("| Nomor baris/kolom tidak valid, Silahkan coba lagi|");
                 i--; // Mengulang input untuk nomor baris atau kolom yang tidak valid
             }
         }
-        System.out.println("Pilihan kursi Anda:");
+        System.out.println("|==================================================|");
+        System.out.println("|                Pilihan kursi Anda:               |");
         for (int i = 0; i < indexKursiTerpilih; i++) {
             System.out.println(kursiTerpilih[i]);
         }
@@ -671,20 +674,23 @@ public class DasprKasaran {
             System.out.println("|                                                  |");
         }
         System.out.println("|_______|1|_____|2|_____|3|_____|4|_____|5|________|");
-        System.out.println("Silahkan memilih Kursi untuk Studio Deluxe: ");
+        System.out.println("|==================================================|");
+        System.out.println("|    Silahkan memilih Kursi untuk Studio Deluxe:   |");
         for (int i = 0; i < jumlahTiket; i++)
-        {     
-            System.out.println("Kursi ke-" + (i + 1) + ". ");
-            System.out.print("Pilih kolom Baris (A-E) dan 0 untuk cancel: ");
+        {   
+            System.out.println("|--------------------------------------------------|");
+            System.out.println("|                    Kursi ke-" + (i + 1) + ". " + "                  |");
+            System.out.print("|  Pilih kolom Baris (A-E) dan 0 untuk cancel: " );
             char barisHurufInput = inputUntukPilihKursi.next().charAt(0);
             int baris = barisHurufInput - 'A' + 1;
-            System.out.print("Pilih kolom Kursi (1-5) dan 0 untuk cancel: ");
+            System.out.print("|  Pilih kolom Kursi (1-5) dan 0 untuk cancel: ");
             int kolom = inputUntukPilihKursi.nextInt();
 
             if (barisHurufInput == '0' || kolom == 0) 
             {
-                System.out.println("Pemilihan kursi dibatalkan.");
-                break; // Jika pembatalan, keluar dari loop
+                System.out.println("|--------------------------------------------------|");
+                System.out.println("|            Pemilihan kursi dibatalkan.           |");
+                System.out.println("|==================================================|");                break; // Jika pembatalan, keluar dari loop
             } 
             else if (baris >= 1 && baris <= 5 && kolom >= 1 && kolom <= 5) 
             {
