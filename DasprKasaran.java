@@ -53,7 +53,6 @@ public class DasprKasaran {
     static char[][] StudioDeluxeTheMarvels = new char[5][5]; // StudioDeluxeTheMarvels dengan 5 baris dan 5 kolom
     static char[][] StudioThePremiereNapoleon = new char[5][5]; // StudioThePremiereNapoleon dengan 5 baris dan 5 kolom
     static int indexKursiTerpilih = 0; // Menunjukkan indeks terakhir kursi terpilih
-    private static boolean isPemilihanDibatalkan = false;
     //>>>>>>>>>>>>>>>>>>>>>>>>>> Kebutuhan Untuk Kursi Studio <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>> 
@@ -152,7 +151,6 @@ public class DasprKasaran {
             System.out.println("|======================================|");
             switch (menuChoice) {
                 case 1:
-                    isPemilihanDibatalkan = false;
                     PemilihanFILM();
                     filmTerpilih = jdl_film[jdlinput];
     
@@ -161,37 +159,29 @@ public class DasprKasaran {
                         if (studioInput == 0) {
                             PemilihanJumlahTiket();
                             PemilihanKursiStudioDeluxeWish();
-                            if (!isPemilihanDibatalkan) {
-                                tampilkanRingkasan();
-                                prosesPembayaran();
-                            }
+                            tampilkanRingkasan();
+                            prosesPembayaran();
                         }
                     } else if (filmTerpilih.equalsIgnoreCase("The Marvels")) {
                         PemilihanStudioTheMarvels();
                         if (studioInput == 0) {
                             PemilihanJumlahTiket();
                             PemilihanKursiStudioDeluxeTheMarvels();
-                            if (!isPemilihanDibatalkan) {
-                                tampilkanRingkasan();
-                                prosesPembayaran();
-                            }
+                            tampilkanRingkasan();
+                            prosesPembayaran();
                         } else if (studioInput == 1) {
                             PemilihanJumlahTiket();
                             PemilihanKursiStudioIMAXTheMarvels();
-                            if (!isPemilihanDibatalkan) {
-                                tampilkanRingkasan();
-                                prosesPembayaran();
-                            }
+                            tampilkanRingkasan();
+                            prosesPembayaran();
                         }
                     } else if (filmTerpilih.equalsIgnoreCase("Napoleon")) {
                         PemilihanStudioNapoleon();
                         if (studioInput == 0) {
                             PemilihanJumlahTiket();
                             PemilihanKursiStudioThePremiereNapoleon();
-                            if (!isPemilihanDibatalkan) {
-                                tampilkanRingkasan();
-                                prosesPembayaran();
-                            }
+                            tampilkanRingkasan();
+                            prosesPembayaran();
                         }
                     }
                     break;
@@ -404,8 +394,9 @@ public class DasprKasaran {
         for (int i = 0; i < indexHistoryKasir1; i++) {
             System.out.println("| > Transaksi " + (i + 1) + ": Jumlah Tiket = " + historyJumlahTiketKasir1[i] +
                     ", Pendapatan = " + historyPendapatanKasir1[i] + "                                 |");
+            System.out.println("|-------------------------------------------------------------------------------------|");
+
         }
-        System.out.println("|-------------------------------------------------------------------------------------|");
         System.out.println("| Kasir 2:                                                                            |");
         for (int i = 0; i < indexHistoryKasir2; i++) {
             System.out.println("| > Transaksi " + (i + 1) + ": Jumlah Tiket = " + historyJumlahTiketKasir2[i] +
@@ -567,7 +558,6 @@ public class DasprKasaran {
                 System.out.println("|--------------------------------------------------|");
                 System.out.println("|            Pemilihan kursi dibatalkan.           |");
                 System.out.println("|==================================================|");
-                isPemilihanDibatalkan = true;
                 break; // Jika pembatalan, keluar dari loop
             } 
             else if (baris >= 1 && baris <= 5 && kolom >= 1 && kolom <= 5) 
@@ -576,6 +566,7 @@ public class DasprKasaran {
                 {
                     StudioDeluxeWish[baris - 1][kolom - 1] = 'X'; // Menandai kursi sebagai terisi ('X')
                     kursiTerpilih[indexKursiTerpilih] = "|                (Baris " + barisHurufInput + " - Kolom " + kolom + ")               |";
+
                     System.out.println("|==================================================|");
                     indexKursiTerpilih++;
                     System.out.println("|     Anda telah memilih kursi Baris " + barisHurufInput + ", Kolom " + kolom + "    |");
@@ -594,12 +585,11 @@ public class DasprKasaran {
                 i--; // Mengulang input untuk nomor baris atau kolom yang tidak valid
             }
         }
-        if (!isPemilihanDibatalkan) {
-            System.out.println("|==================================================|");
-            System.out.println("|                Pilihan kursi Anda:               |");
-            for (int i = 0; i < indexKursiTerpilih; i++) {
-                System.out.println(kursiTerpilih[i]);
-            }
+        System.out.println("|==================================================|");
+        System.out.println("|                Pilihan kursi Anda:               |");
+
+        for (int i = 0; i < indexKursiTerpilih; i++) {
+            System.out.println(kursiTerpilih[i]);
         }
     }
     static void PemilihanKursiStudioIMAXTheMarvels(){
@@ -636,9 +626,9 @@ public class DasprKasaran {
             {
                 System.out.println("|--------------------------------------------------|");
                 System.out.println("|            Pemilihan kursi dibatalkan.           |");
-                System.out.println("|==================================================|");  
-                isPemilihanDibatalkan = true;            
+                System.out.println("|==================================================|");                
                 break; // Jika pembatalan, keluar dari loop
+                // Jika pembatalan, keluar dari loop
             } 
             else if (baris >= 1 && baris <= 5 && kolom >= 1 && kolom <= 5) 
             {
@@ -646,30 +636,26 @@ public class DasprKasaran {
                 {
                     StudioIMAXTheMarvels[baris - 1][kolom - 1] = 'X'; // Menandai kursi sebagai terisi ('X')
                     kursiTerpilih[indexKursiTerpilih] = "|                (Baris " + barisHurufInput + " - Kolom " + kolom + ")               |";
-                    System.out.println("|==================================================|");
                     indexKursiTerpilih++;
-                    System.out.println("|     Anda telah memilih kursi Baris " + barisHurufInput + ", Kolom " + kolom + "    |");
+                    System.out.println("|    Anda telah memilih kursi Baris "  + barisHurufInput + ", Kolom " + kolom + "   |");
                 } 
                 else 
                 {
-                    System.out.println("|--------------------------------------------------|");
                     System.out.println("|Kursi sudah terisi, silahkan pilih kursi yang lain|");
                     i--; // Mengulang input untuk kursi yang sudah terisi
                 }
             } 
             else 
-            {
+            {   
                 System.out.println("|--------------------------------------------------|");    
                 System.out.println("| Nomor baris/kolom tidak valid, Silahkan coba lagi|");
                 i--; // Mengulang input untuk nomor baris atau kolom yang tidak valid
             }
         }
-        if (!isPemilihanDibatalkan) {
-            System.out.println("|==================================================|");
-            System.out.println("|                Pilihan kursi Anda:               |");
-            for (int i = 0; i < indexKursiTerpilih; i++) {
-                System.out.println(kursiTerpilih[i]);
-            }
+        System.out.println("|==================================================|");
+        System.out.println("|                Pilihan kursi Anda:               |");
+        for (int i = 0; i < indexKursiTerpilih; i++) {
+            System.out.println(kursiTerpilih[i]);
         }
     }
     static void PemilihanKursiStudioDeluxeTheMarvels(){
@@ -705,8 +691,7 @@ public class DasprKasaran {
             {
                 System.out.println("|--------------------------------------------------|");
                 System.out.println("|            Pemilihan kursi dibatalkan.           |");
-                System.out.println("|==================================================|");   
-                isPemilihanDibatalkan = true;             
+                System.out.println("|==================================================|");                
                 break; // Jika pembatalan, keluar dari loop
             } 
             else if (baris >= 1 && baris <= 5 && kolom >= 1 && kolom <= 5) 
@@ -715,13 +700,11 @@ public class DasprKasaran {
                 {
                     StudioDeluxeTheMarvels[baris - 1][kolom - 1] = 'X'; // Menandai kursi sebagai terisi ('X')
                     kursiTerpilih[indexKursiTerpilih] = "|                (Baris " + barisHurufInput + " - Kolom " + kolom + ")               |";
-                    System.out.println("|==================================================|");
                     indexKursiTerpilih++;
                     System.out.println("|     Anda telah memilih kursi Baris " + barisHurufInput + ", Kolom " + kolom + "    |");
                 } 
                 else 
                 {
-                    System.out.println("|--------------------------------------------------|");
                     System.out.println("|Kursi sudah terisi, silahkan pilih kursi yang lain|");
                     i--; // Mengulang input untuk kursi yang sudah terisi
                 }
@@ -729,16 +712,14 @@ public class DasprKasaran {
             else 
             {
                 System.out.println("|--------------------------------------------------|");    
-                System.out.println("| Nomor baris/kolom tidak valid, Silahkan coba lagi|");
+                System.out.println("| Nomor baris/kolom tidak valid, Silahkan coba lagi|");                
                 i--; // Mengulang input untuk nomor baris atau kolom yang tidak valid
             }
         }
-        if (!isPemilihanDibatalkan) {
-            System.out.println("|==================================================|");
-            System.out.println("|                Pilihan kursi Anda:               |");
-            for (int i = 0; i < indexKursiTerpilih; i++) {
-                System.out.println(kursiTerpilih[i]);
-            }
+        System.out.println("|==================================================|");
+        System.out.println("|                Pilihan kursi Anda:               |");
+        for (int i = 0; i < indexKursiTerpilih; i++) {
+            System.out.println(kursiTerpilih[i]);
         }
     }
     static void PemilihanKursiStudioThePremiereNapoleon(){
@@ -756,22 +737,22 @@ public class DasprKasaran {
             System.out.println("|                                                  |");
         }
         System.out.println("|_______|1|_____|2|_____|3|_____|4|_____|5|________|");
-        System.out.println("Silahkan memilih Kursi untuk Studio The Premiere: ");
+        System.out.println("|==================================================|");
+        System.out.println("|Silahkan memilih Kursi untuk Studio The Premiere: |");
         for (int i = 0; i < jumlahTiket; i++)
         {     
-            System.out.println("Kursi ke-" + (i + 1) + ". ");
-            System.out.print("Pilih kolom Baris (A-E) dan 0 untuk cancel: ");
+            System.out.println("|                    Kursi ke-" + (i + 1) + ". " + "                  |");
+            System.out.print("|  Pilih kolom Baris (A-E) dan 0 untuk cancel: " );
             char barisHurufInput = inputUntukPilihKursi.next().charAt(0);
             int baris = barisHurufInput - 'A' + 1;
-            System.out.print("Pilih kolom Kursi (1-5) dan 0 untuk cancel: ");
+            System.out.print("|  Pilih kolom Kursi (1-5) dan 0 untuk cancel: ");
             int kolom = inputUntukPilihKursi.nextInt();
 
             if (barisHurufInput == '0' || kolom == 0) 
             {
                 System.out.println("|--------------------------------------------------|");
                 System.out.println("|            Pemilihan kursi dibatalkan.           |");
-                System.out.println("|==================================================|");
-                isPemilihanDibatalkan = true;                
+                System.out.println("|==================================================|"); 
                 break; // Jika pembatalan, keluar dari loop
             } 
             else if (baris >= 1 && baris <= 5 && kolom >= 1 && kolom <= 5) 
@@ -786,7 +767,6 @@ public class DasprKasaran {
                 } 
                 else 
                 {
-                    System.out.println("|--------------------------------------------------|");
                     System.out.println("|Kursi sudah terisi, silahkan pilih kursi yang lain|");
                     i--; // Mengulang input untuk kursi yang sudah terisi
                 }
@@ -794,16 +774,14 @@ public class DasprKasaran {
             else 
             {
                 System.out.println("|--------------------------------------------------|");    
-                System.out.println("| Nomor baris/kolom tidak valid, Silahkan coba lagi|");
+                System.out.println("| Nomor baris/kolom tidak valid, Silahkan coba lagi|");                
                 i--; // Mengulang input untuk nomor baris atau kolom yang tidak valid
             }
         }
-        if (!isPemilihanDibatalkan) {
-            System.out.println("|==================================================|");
-            System.out.println("|                Pilihan kursi Anda:               |");
-            for (int i = 0; i < indexKursiTerpilih; i++) {
-                System.out.println(kursiTerpilih[i]);
-            }
+        System.out.println("|==================================================|");
+        System.out.println("|                Pilihan kursi Anda:               |");        
+        for (int i = 0; i < indexKursiTerpilih; i++) {
+            System.out.println(kursiTerpilih[i]);
         }
     }
 
